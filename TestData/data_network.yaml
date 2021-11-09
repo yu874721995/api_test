@@ -1,0 +1,183 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.user_phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/indexV1
+  apiName: 我的人脉
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/index
+  apiName: 人脉 - 详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+    share_code: info.share_code
+    share_url: info.share_url
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/detailV1
+  apiName: 人脉详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/shareReward
+  apiName: 每日分享（分享后调用）
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/acceptInvite
+  apiName: 接受邀请
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.phone
+    share_sign: func.share_url
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/getUser
+  apiName: 绑定的用户信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    phone: func.phone
+    share_code: parmes.share_code
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/shareDetail
+  apiName: 邀请卡信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    phone: func.phone
+    share_sign: func.share_url
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/detail
+  apiName: 邀请卡详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    type: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/rewardDetailSingle
+  apiName: 人脉贡献明细
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/link/rewardDetailTotal
+  apiName: 贡献明细
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

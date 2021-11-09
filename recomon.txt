@@ -1,0 +1,11 @@
+aliyun-python-sdk-core==2.13.32
+aliyun-python-sdk-kms==2.14.0
+allure-pytest==2.8.18
+allure-python-commons==2.8.18
+pytest==6.2.2
+pytest-html==2.1.1
+PyYAML==5.3.1
+selenium==3.141.0
+unittest2==1.1.0
+urllib3==1.24.3
+

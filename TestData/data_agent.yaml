@@ -1,0 +1,292 @@
+- method: POST
+  apiPath: /agent/auth/login
+  apiName: 登录页-账号登陆
+  Header:
+  body:
+    account: xl123456
+    password: ysh123456
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/agentMainMsg
+  apiName: 首页 -消息
+  Header:
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/agentMain
+  apiName: 首页 -数据
+  Header:
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/separateSet
+  apiName: 用户分成设置
+  Header:
+  body:
+    access_token: parmes.token
+    type: 2
+    user_parent_ratio: 5
+    user_ratio: 80
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelAdd
+  apiName: 渠道链接-新增
+  Header:
+  body:
+    access_token: parmes.token
+    channel_name: func.name
+    domain: https://test-agent.51dengta.net/#/register?
+  assert:
+    result: true
+  vistariced:
+    channel_id: info.channel_id
+    spread_link: info.spread_link
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelSpreadSendMsg
+  apiName: 渠道推广H5注册页-检测是否能发送短信 / 通过后走 公用的发短信接口
+  Header:
+  body:
+    spread_link: func.spread_link
+    phone: func.phone
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelSpreadSendMsg
+  apiName: 渠道推广H5注册页 - 点击注册按钮
+  Header:
+  body:
+    spread_link: func.spread_link
+    phone: func.phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelSpreadRegPre
+  apiName: 渠道推广H5注册页 - 判断是否 失效
+  Header:
+  body:
+    access_token: parmes.token
+    spread_link: func.spread_link
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelList
+  apiName: 渠道链接-列表+搜索
+  Header:
+  body:
+    access_token: parmes.token
+    domain: https://test-agent.51dengta.net/#/register?
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelUpdate
+  apiName: 渠道链接-编辑
+  Header:
+  body:
+    access_token: parmes.token
+    channel_name: func.name
+    channel_id: parmes.channel_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/channelDelete
+  apiName: 渠道链接-删除
+  Header:
+  body:
+    access_token: parmes.token
+    channel_id: parmes.channel_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/incomeInList
+  apiName: 收益-账单-收益
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/incomeOutList
+  apiName: 收益-账单-支出
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/income
+  apiName: 收益-主页面
+  Header:
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/msgList
+  apiName: 官方消息列表
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/spreadList
+  apiName: 人脉列表
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/anchorList
+  apiName: 主播列表
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+    user_id: info.list[0].user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/anchorEdit
+  apiName: 主播编辑
+  Header:
+  body:
+    access_token: parmes.token
+    anchor_end_time: 2022/06/30
+    anchor_p_ratio: 5
+    anchor_ratio: 50
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/anchorForbidden
+  apiName: 主播禁用
+  Header:
+  body:
+    access_token: parmes.token
+    ban_type: 0
+    switch: 2
+    unban_time: 2022/7/27
+    ban_reason_id: 57
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/anchorForbidden
+  apiName: 主播启用
+  Header:
+  body:
+    access_token: parmes.token
+    switch: 1
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /agent/agent/anchorAuditList
+  apiName: 主播申请列表
+  Header:
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

@@ -1,0 +1,95 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.phone
+    code: 80008
+  assert:
+    result: true
+    info.first_visit: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+    is_band_wx: info.unique_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/config
+  apiName: 签到奖励配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/sign
+  apiName: 签到
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/signRecord
+  apiName: 签到记录
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/announcement
+  apiName: 轮播数据、累计
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

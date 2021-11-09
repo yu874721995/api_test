@@ -1,0 +1,94 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/getSign
+  apiName: 登录授权-获取临时登陆凭证
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    sign_token: info.sign_token
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/start
+  apiName: 登录授权-App启动事件
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/hasInvite
+  apiName: 登录授权-当前用户是否需要提示邀请
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    sign_token: parmes.sign_token
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/nicknameGenerator
+  apiName: 登录授权-昵称自动生成
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

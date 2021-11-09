@@ -1,0 +1,11 @@
+.idea
+Logs
+.pytest_cache
+report
+TestReport
+common/dengta.json
+data_port.json
+__pycache__/
+**/__pycache__
+-cache-clear
+pytest/

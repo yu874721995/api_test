@@ -1,0 +1,1002 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.user_phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆2
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.user_phone2
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token2: info.access_token
+    user_id2: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料2
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 2
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/sign
+  apiName: 签到
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/sign/config
+  apiName: 签到配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/index
+  apiName: 用户-个人信息/我的
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/fansRank
+  apiName: 用户-15天守护榜
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_id : parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/user/addSlogan
+  apiName: 用户-交友宣言 添加
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    slogan: test交友
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/user/getSloganList
+  apiName: 用户-交友宣言 查询
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/task/list
+  apiName: 用户-任务列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    os: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/follow
+  apiName: 用户-关注
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_id: parmes.user_id2
+    status: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/search
+  apiName: 用户-搜索
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    key: 15900000002
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/black
+  apiName: 用户-是否拉黑
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    to_user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/setUserPosition
+  apiName: 用户-更新用户经纬度位置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    longitude: 95.55568
+    latitude: 83.555
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/tag/set
+  apiName: 用户-标签-设置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    tag_json: [1]
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/tag/list
+  apiName: 用户-标签-列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/checkUser
+  apiName: 用户-用户检测
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/info
+  apiName: 用户-用户详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+    avatar: info.avatar
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/album/upload
+  apiName: 用户-相册-上传
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    pics: parmes.avatar
+    cover: 1
+  assert:
+    result: true
+  vistariced:
+    pics_id: info.id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/album/delete
+  apiName: 用户-相册-删除
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    id: parmes.pics_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/auth/userPhotoAuth
+  apiName: 用户-真人认证
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    pics: parmes.avatar
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /room/roomV1/banReason
+  apiName: 用户-禁播理由
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+
+- method: POST
+  apiPath: /user/user/editNeed
+  apiName: 用户-编辑交友信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    height_min: 170
+    height_max: 175
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/edit
+  apiName: 用户-编辑信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    height: 180
+    name: func.name
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/onLineUsers
+  apiName: 用户-获取在线的用户id
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/user/onLineUsers
+  apiName: 用户-获取真人认证信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/setBlacklist
+  apiName: 用户-黑名单设置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    status: 1
+    user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/blacklist
+  apiName: 用户-黑名单
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /oneConverse/Config/getToUserConfig
+  apiName: 聊天室-双方配置信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /oneConverse/Index/chatUp
+  apiName: 聊天室-搭讪接口
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    user_list: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /oneConverse/Config/getConfig
+  apiName: 获取一对一收费列表选项
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /oneConverse/Config/setUserConfig
+  apiName: 设置一对一收费
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    type: 1
+    id: 3
+    money: 3
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /oneConverse/Config/getUserConfig
+  apiName: 获取用户一对一收费配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/account/promptRecharge
+  apiName: 首次余额不足弹窗
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    to_user_id: parmes.user_id2
+    client_type: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/task/taskEvent
+  apiName: 任务事件触发
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    event: SHARE_USER
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/task/list
+  apiName: 任务列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    os: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/task/getTaskLayer
+  apiName: 任务弹窗配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/post/create
+  apiName: 发动态
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    text: 动态动态动态
+  assert:
+    result: true
+  vistariced:
+    post_id: info.id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/task/receiveTask
+  apiName: 任务领取奖励
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    id: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/friends/followList
+  apiName: 关注列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/friends/friendList
+  apiName: 好友列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/friends/secretList
+  apiName: 私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/friends/beFollowList
+  apiName: 粉丝列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/verifyToken
+  apiName: 实名认证开始请求
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    number: 123456199502013521
+    real_name: 测试
+  assert:
+    result: true
+  vistariced:
+    BizId: info.BizId
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/verifyResult
+  apiName: 实名认证获取结果
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    BizId: parmes.BizId
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/secret
+  apiName: 开启私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    scan_pwd: sc123456
+    hidden_pwd: hi123456
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/edit
+  apiName: 修改私密密码
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    scan_pwd: sc123456
+    hidden_pwd: hi123456
+    new_hidden_pwd: hc1234567
+    new_scan_pwd: hi1234567
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/forget
+  apiName: 忘记私密密码
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    phone: parmes.user_phone
+    code:  80008
+    new_hidden_pwd: 5432101
+    new_scan_pwd: 5432102
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/user/secret
+  apiName: 是否开启私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/inGroup
+  apiName: 是否在私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    from_user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/create
+  apiName: 加入私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    from_user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/info
+  apiName: 私密分组信息
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /user/secret/remove
+  apiName: 移除私密分组
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    from_user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/noble/self
+  apiName: 我的贵族
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    remark: 暂无贵族
+
+- method: POST
+  apiPath: /user/level/index
+  apiName: 贵族等级
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/noble/renew
+  apiName: 续费贵族
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    remark: 需要支付
+
+- method: POST
+  apiPath: /user/noble/index
+  apiName: 贵族主页
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/noble/set
+  apiName: 贵族设置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    is_shadow: 0
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    remark: 暂时跳过
+
+- method: POST
+  apiPath: /user/pack/index
+  apiName: 背包列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/pack/index
+  apiName: 使用背包物品
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+    remark: 暂无物品
+
+- method: POST
+  apiPath: /user/account/recharge
+  apiName: 充值
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    pay_type: 1
+    order_src: 1
+    price: 100
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/account/toCoin
+  apiName: 兑换花花
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    wallet_type: 1
+    order_src: 1
+    money: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    remark: 暂时跳过
+
+- method: POST
+  apiPath: /user/account/toWithdraw
+  apiName: 提现
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    wallet_type: 1
+    order_src: 1
+    money: 10
+    pay_type: 1
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    remark: 暂时跳过
+
+- method: POST
+  apiPath: /user/account/withdraws
+  apiName: 提现请求
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/account/outputs
+  apiName: 支出明细
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/account/consumeRecords
+  apiName: 消费记录
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    page: 1
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/account/rechargeMenu
+  apiName: 花花充值菜单
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    client_type: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

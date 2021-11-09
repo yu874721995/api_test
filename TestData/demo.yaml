@@ -1,0 +1,16 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: [func.user_phone,1,2,3]
+    code: 80008
+  assert:
+    result: [true,false,true]
+    code: [400,500]
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1

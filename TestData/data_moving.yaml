@@ -1,0 +1,351 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.moving_phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆2
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.moving_phone2
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token2: info.access_token
+    user_id2: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料2
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 2
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/post/create
+  apiName: 发动态
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    text: 动态动态动态
+  assert:
+    result: true
+  vistariced:
+    post_id: info.id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/post/detail
+  apiName: 动态详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/post/getList
+  apiName: 我的动态
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    end_time: 0
+    limit: 10
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/create
+  apiName: 动态-发评论（自己评论）
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+    text: 自己评论
+    user_id: parmes.user_id
+  assert:
+    result: true
+  vistariced:
+    commit_id: info.id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/create
+  apiName: 动态-发评论（其他人评论）
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    post_id: parmes.post_id
+    text: 其他人评论
+    user_id: parmes.user_id2
+  assert:
+    result: true
+  vistariced:
+    commit_id2: info.id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/post/setLike
+  apiName: 动态-点赞
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    post_id: parmes.post_id
+    status: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/setLike
+  apiName: 动态-评论-点赞
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    comment_id: parmes.commit_id
+    post_id: parmes.post_id
+    status: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/list
+  apiName: 动态 - 评论列表
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+    end_time: 0
+    limit: 10
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /post/post/postShareCount
+  apiName: 动态分享 统计
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /post/post/postDetailWeChat
+  apiName: 分享微信动态h5
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/del
+  apiName: 动态 - 删评论(删自己发的评论)
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+    comment_id: parmes.commit_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/del
+  apiName: 动态 - 删评论(删别人发的评论)
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+    comment_id: parmes.commit_id2
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+    sleep: 1.5
+
+- method: POST
+  apiPath: /post/post/editAuth
+  apiName: 动态 - 编辑权限
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+    access_type: 3
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/comment/del
+  apiName: 动态 - 删动态
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    post_id: parmes.post_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+    sleep: 2
+
+- method: POST
+  apiPath: /post/post/create
+  apiName: 发起投票
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    vote_type: 1
+    vote_title: 投票标题
+    vote_options: ["1","2"]
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 0
+    message: 暂时跳过，需要处理json
+
+- method: POST
+  apiPath: /post/topic/getList
+  apiName: 话题/顶部话题
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+    topic_id: info.list[0].id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /post/topic/getTopicDetail
+  apiName: 话题/顶部话题
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    topic_id: parmes.topic_id
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token2
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1

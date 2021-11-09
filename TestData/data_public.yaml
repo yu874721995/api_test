@@ -1,0 +1,229 @@
+- method: POST
+  apiPath: /user/auth/smsLogin
+  apiName: 登录授权-短信注册/登陆
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    phone: func.phone
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+    token: info.access_token
+    user_id: info.user_id
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/completeProfile
+  apiName: 登录授权-完善资料
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    name: func.name
+    avatar: func.image_url
+    city_code: 440300
+    sex: 1
+  assert:
+    result: true
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/activityAd/index
+  apiName: 活动弹窗
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /recommend/recommend/recommend
+  apiName: 推荐用户列表/邂逅
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /recommend/recommend/editSelect
+  apiName: 编辑筛选条件
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    age_min: 18
+    age_max: 22
+    place_city_code: 131100
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /recommend/recommend/getSelect
+  apiName: 获取筛选条件
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /user/user/destroy
+  apiName: 用户-销户
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    access_token: parmes.token
+    code: 80008
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+    
+- method: GET
+  apiPath: /common/boot/index
+  apiName: 启动页
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/city/info
+  apiName: 城市 - 详情
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    code: 441300
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/upgrade
+  apiName: 客户端更新升级
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    os: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/contentCheck/check
+  apiName: 文本敏感字校验
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    since: 12
+    text: 123
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/watch/getPan
+  apiName: 获取ios开关配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/watch/getPan
+  apiName: 获取ios开关配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /common/config/index
+  apiName: 配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: GET
+  apiPath: /common/config/channel
+  apiName: 渠道包配置
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    src: _huawei
+    version: 1.7
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /proposal/question/index
+  apiName: 常见问题
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    type: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
+- method: POST
+  apiPath: /proposal/question/listByTypeId
+  apiName: 获取分类下的问题
+  Header:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    type_id: 1
+  assert:
+    result: true
+  vistariced:
+  expand:
+    skip: 1
+
