@@ -40,6 +40,7 @@
   apiPath: /agent/agent/separateSet
   apiName: 用户分成设置
   Header:
+    content-Type: application/json
   body:
     access_token: parmes.token
     type: 2

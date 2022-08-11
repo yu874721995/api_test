@@ -16,7 +16,7 @@ from requests.exceptions import RequestException
 from requests.exceptions import ProxyError
 from requests.exceptions import ConnectionError
 from common.logger import Logger
-import conftest as global_conf
+from common.common import method
 from test_case import conftest as case_conf
 from config import RunConfig
 
@@ -30,7 +30,7 @@ class RequesteUtils:
         self.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         self.session = requests.session()
 
-    def __get(self, get_infos):
+    def __get(self, get_infos,request):
         '''
         get方法
         :param get_infos: 单条用例的所有数据
@@ -43,7 +43,7 @@ class RequesteUtils:
                                         params=get_infos["body"]
                                         )
             response.encoding = response.apparent_encoding
-            result = CheckUtils(response).run_check(get_infos['assert'])
+            result = CheckUtils(response).run_check(request,get_infos['assert'])
         except ProxyError as e:
             result = {'code': 4, 'message': '代理错误异常'}
         except ConnectionError as e:
@@ -54,45 +54,37 @@ class RequesteUtils:
             result = {'code': 4, 'message': '请求异常，原因：%s' % (e.__str__())}
         return result
 
-    def __post(self, post_infos):
+    def __post(self, post_infos,body_type,request):
         '''
         :param post_infos:单条用例的所有数据
         :return:
         '''
         Logger.info( " 请求信息-POST " + post_infos['url']  + str(post_infos["body"]))
         try:
-            response = self.session.post(url=post_infos['url'],
-                                         headers=post_infos['Header'],
-                                         data=post_infos["body"]
-                                         )
+
+            if body_type == 'data':
+                response = self.session.post(url=post_infos['url'],
+                                             headers=post_infos['Header'],
+                                             data=aesEncrypt(post_infos["body"])
+                                             )
+            else:
+                response = self.session.post(url=post_infos['url'],
+                                             headers=post_infos['Header'],
+                                             json=post_infos["body"]
+                                             )
             response.encoding = response.apparent_encoding
-            result = CheckUtils(response).run_check(post_infos['assert'])
+            result = CheckUtils(response).run_check(request,post_infos['assert'])
         except ProxyError as e:
-            result = {'code': 4,  'message': '代理错误异常'}
+            result = {'code': 4,  'message': '代理错误异常,原因：%s' % (e.__str__())}
         except ConnectionError as e:
-            result = {'code': 4,  'message': '连接超时异常'}
+            result = {'code': 4,  'message': '连接超时异常,原因：%s' % (e.__str__())}
         except RequestException as e:
             result = {'code': 4, 'message': 'Request异常，原因：%s' % (e.__str__())}
         except Exception as e:
             result = {'code': 4, 'message': '请求异常，原因：%s' % (e.__str__())}
         return result
 
-    def method(self,method_name,request):
-        '''
 
-        :param method_name: 方法名
-        :param cache:
-        :return:
-        '''
-        if hasattr(case_conf, method_name):
-            data = getattr(case_conf, method_name)
-            return data(request)
-        else:
-            if hasattr(global_conf, method_name):
-                data = getattr(global_conf, method_name)
-                return data(request)
-            else:
-                raise ModuleNotFoundError('没有注册该方法：' + method_name)
 
     def request(self,step_infos,request):
         '''
@@ -104,9 +96,31 @@ class RequesteUtils:
         try:
             Logger.info('***************用例名称: {}***************'.format(step_infos['apiName']))
             step_infos['url'] = self.hosts + step_infos['apiPath']
-            requests_type = step_infos["method"]
+            requests_method = step_infos["method"]
+            body_type = step_infos['body_type']
             body = step_infos['body']
             header = step_infos['Header']
+
+            # 存在parmes和func时进行替换
+            if isinstance(body, dict):
+                step_infos['body']['version'] = RunConfig.version
+                for key in body.keys():
+                    if 'parmes.' in str(body[key]):
+                        body[key] = request.config.cache.get(body[key].split('.')[1], None)
+                    if 'func.' in str(body[key]):
+                        body[key] = method(body[key].split('.')[1],request)
+            else:
+                step_infos['body'] = {}
+                step_infos['body']['version'] = RunConfig.version
+            if isinstance(header, dict):
+                for key in header.keys():
+                    if 'parmes.' in str(header[key]):
+                        header[key] = request.config.cache.get(header[key].split('.')[1], None)
+                    if 'func.' in str(header[key]):
+                        header[key] = method(header[key].split('.')[1],request)
+            else:
+                step_infos['Header'] = self.headers
+
             #判断是否跳过
             if step_infos.__contains__('expand'):
                 if step_infos['expand'].__contains__('skip'):
@@ -117,37 +131,19 @@ class RequesteUtils:
                         return result
                 if step_infos['expand'].__contains__('sleep'):
                     case_conf.sleep(request,step_infos['expand']['sleep'])
+                if step_infos['expand'].__contains__('list'):
+                    if step_infos['expand']['list'] == 0:
+                        step_infos['body'] = [step_infos['body']]
 
-            # 存在parmes和func时进行替换
-            if isinstance(body, dict):
-                step_infos['body']['version'] = RunConfig.version
-                for key in body.keys():
-                    if 'parmes.' in str(body[key]):
-                        body[key] = request.config.cache.get(body[key].split('.')[1], None)
-                    if 'func.' in str(body[key]):
-                        body[key] = self.method(body[key].split('.')[1],request)
-            else:
-                step_infos['body'] = {}
-                step_infos['body']['version'] = RunConfig.version
-            if isinstance(header, dict):
-                for key in header.keys():
-                    if 'parmes.' in str(header[key]):
-                        header[key] = request.config.cache.get(header[key].split('.')[1], None)
-                    if 'func.' in str(header[key]):
-                        header[key] = self.method(header[key].split('.')[1],request)
-            else:
-                step_infos['Header'] = self.headers
-
-
-            if requests_type == "GET":
-                result = self.__get(step_infos)
-            elif requests_type == "POST":
-                result = self.__post(step_infos)
+            if requests_method == "GET":
+                result = self.__get(step_infos,request)
+            elif requests_method == "POST":
+                result = self.__post(step_infos,body_type,request)
             else:
                 result = {'code': 3, 'message': '请求方式不支持'}
 
             # 提取响应内容到缓存中，判断vistariced存在且不为空
-            if step_infos.__contains__('vistariced') and result['code'] == 0:
+            if step_infos.__contains__('vistariced') and result['code'] == 0 and step_infos['vistariced'] != None:
                 if step_infos['vistariced'] is not None:
                         data = step_infos['vistariced']
                         for i in data.keys():

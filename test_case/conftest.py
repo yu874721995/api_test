@@ -4,7 +4,7 @@
 # @File      : conftest.py
 # @SoftWare  : dengta_api_test
 import re
-
+import json
 import requests
 import pytest
 import time
@@ -79,3 +79,38 @@ def spread_link(request):
 def version(request):
     version = RunConfig.version
     return version
+
+def nextop_openapi_header_true(request):
+    token = request.config.cache.get('token', None)
+    return 'Bearer '+token
+
+def nextop_openapi_header_false(request):
+    token = request.config.cache.get('token', None)
+    return 'Bearer '+ token + '123456----------------------'
+
+def assert_page(request):
+    body = request.keywords.node.funcargs['data']['body']
+    header = request.keywords.node.funcargs['data']['Header']
+    if header and isinstance(header, dict):
+        if header['Authorization'] != 'Bearer ' + request.config.cache.get('token',None):
+            return 2000
+    if body and isinstance(body, dict):
+        if body['limit'] == '好' or body['page'] == '好':
+            return 4000
+        return 0
+    raise ValueError('body报错了')
+
+def return_token(request):
+    return 'Bearer ' + request.config.cache.get('token', None)
+
+def get_session(request):
+    header = request.keywords.node.funcargs['data']['Header']
+    return header['cookie']
+
+def return_reqid(request):
+    times = str(int(time.time() * 1000)) + '.0125'
+    return times
+def return_reqtime(reqeust):
+    times = str(int(time.time() * 1000))
+    return times
+

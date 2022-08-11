@@ -1,16 +1,84 @@
 - method: POST
-  apiPath: /user/auth/smsLogin
-  apiName: 登录授权-短信注册/登陆
+  apiPath: /portal/login/getToken
+  apiName: 获取token
   Header:
-    Content-Type: application/x-www-form-urlencoded
+    Content-Type: application/json
+    x-ca-reqid: func.return_reqid
+    x-ca-reqtime: func.return_reqtime
   body:
-    phone: [func.user_phone,1,2,3]
-    code: 80008
-  assert:
-    result: [true,false,true]
-    code: [400,500]
+    username: 15113491238
+    password: Aa123456
+    apiKey: o3bekBigP1yQi5WAX137Ivb1
+    secretKey: LkxnEw7Jqt7ij0nTraFszfyYbtUep98r
+  body_type: json
   vistariced:
-    token: info.access_token
-    user_id: info.user_id
+    token: access_token
+  assert:
+    token_type: bearer
   expand:
     skip: 1
+
+- method: POST
+  apiPath: /goods/openapi/sku/create
+  apiName: 开放平台创建sku
+  Header:
+    content-Type: application/json
+    Authorization: func.return_token
+  body:
+    spuCode: '20220525000012128'
+    spuCnName: '23213123'
+    spuEnName: SPU-0525-B英文名称2123123213
+    spuUnit: 件
+    brandName: 开放平台-品牌A
+    categoryLevelOne: 开放平台一级分类测试02111
+    categoryLevelTwo: 开放平台二级分类测试02111
+    categoryLevelThree: 开放平台三级分类测试021111
+    categoryLevelFour: null
+    categoryLevelFive: ''
+    modelCode: 开放平台-型号
+    platformList:
+      - '16175893728993280'
+      - '16173756170874220'
+    propertyList:
+      - propertyName: 文本属性A
+        propertyValue: 文本属性A-值A
+      - propertyName: 单选属性A
+        propertyValue: 单选属性A-值A
+        propertyType: 4
+      - propertyName: 开放平台-单选属性C
+        propertyValue: C
+        propertyType: 4
+    skuList:
+      - skuCode: SKU-0525-B-023123124512555
+        skuCnName: SKU-0525-B-02中文名称
+        skuEnName: SKU-0525-B-02英文名称
+        length: 4
+        width: 2
+        height: 1.5
+        grossWeight: 1.2
+        netWeight: 2.6
+        packageHeight: 2
+        packageLength: 3
+        packageWidth: 4
+        boxGaugeList:
+          - boxGrossWeight: 1
+            boxHigh: 2
+            boxLength: 3
+            boxWidth: 4
+            singleBoxNum: 2
+            remark: adipisicing
+        skuTransport:
+          customsClearanceType: '1'
+          chineseMaterial: '1'
+          englishMaterial: '1'
+          chineseUsage: '1'
+          englishUsage: '1'
+        qualityInspection: true
+        remark: consequat sint dolore sed ea
+  body_type: json
+  assert:
+    code: '000000'
+  vistariced:
+  expand:
+    skip: 1
+    list: 0

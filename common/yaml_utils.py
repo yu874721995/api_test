@@ -40,14 +40,20 @@ class YamlUtils:
                 assert_dict = {}
                 for value in result['body'].values():
                     if isinstance(value, list):
-                        array.append(value)
+                        if value != []:
+                            if value[0] == 'parmes':
+                                array.append(value[1:])
                     else:
                         parmes = []
                         parmes.append(str(value))
                         array.append(parmes)
                 querys = self.cartesian(array).tolist()
-                for key, value in result['assert'].items():
-                    assert_dict[key] = value
+                #assert字段存在且不为None，否则置为空字典
+                if result.__contains__('assert') and result['assert'] != None:
+                    for key, value in result['assert'].items():
+                        assert_dict[key] = value
+                else:
+                    assert_dict = {}
                 for a in querys:
                     number += 1
                     resu = result.copy()
@@ -56,17 +62,23 @@ class YamlUtils:
                         parmes[key] = a[num]
                     resu['body'] = parmes
                     resu['assert'] = {}
-                    for key, value in assert_dict.items():
-                        if isinstance(value, list):
-                            try:
-                                resu['assert'][key]= value[number-1]
-                            except:
-                                resu['assert'][key]= value[-1]
-                        else:
-                            resu['assert'][key]= value
+                    if assert_dict != {}:
+                        for key, value in assert_dict.items():
+                            if isinstance(value, list):
+                                try:
+                                    resu['assert'][key]= value[number-1]
+                                except:
+                                    resu['assert'][key]= value[-1]
+                            else:
+                                resu['assert'][key]= value
                     resu['apiName'] = resu['apiName'] + str(number)
-                    if number != 1: #相同用例只在首次需要提取
-                        resu.pop('vistariced')
+                    resu['body_type'] = result['body_type']
+                    if number != 1: #相同用例只在首次需要提取，后面的直接删掉
+                        try:
+                            resu.pop('vistariced')
+                        except:
+                            #根本就没有vistariced的情况
+                            pass
                     datas.append(resu)
         return datas
 

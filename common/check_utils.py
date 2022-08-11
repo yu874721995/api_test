@@ -8,6 +8,7 @@
 """
 import re
 from common.logger import Logger
+from common.common import method
 
 
 
@@ -64,7 +65,7 @@ class CheckUtils:
             print(2)
             return self.fail_result
 
-    def run_check(self, check_data=None):
+    def run_check(self,request,check_data=None):
         '''
         入口函数
         :param check_data: 断言json
@@ -91,8 +92,8 @@ class CheckUtils:
             }
         except:
             return self.fail_result
-        if code == 200:
-            result = self.dist_assert(self.ck_response, check_data)
+        if code != 500:
+            result = self.dist_assert(self.ck_response, check_data,request)
             if result['code'] == 0:
                 Logger.info('断言内容:{} , 断言结果：{}'.format(check_data, self.pass_result['message']))
             else:
@@ -100,10 +101,10 @@ class CheckUtils:
             return result
         else:
             self.fail_result['message'] = "请求的响应状态码%s" % str(code)
-            Logger.error('断言内容 {} , 断言结果 {}'.format(check_data, self.fail_result['message']))
+            Logger.error('接口报错啦{}'.format(self.fail_result['message']))
             return self.fail_result
 
-    def dist_assert(self, response, assertData):
+    def dist_assert(self, response, assertData,request):
         '''
         断言匹配
         :param response: 接口原始返回对象
@@ -112,6 +113,12 @@ class CheckUtils:
         '''
         try:
             response = response.json()
+            for key in assertData.keys():
+                if 'parmes.' in str(assertData[key]):
+                    assertData[key] = request.config.cache.get(assertData[key].split('.')[1], None)
+                if 'func.' in str(assertData[key]):
+                    assertData[key] = method(assertData[key].split('.')[1], request)
+            Logger.info('断言转换内容'.format(assertData))
             for i in assertData.keys():
                 lets = i.split('.')
                 if len(lets) == 1:
@@ -133,4 +140,5 @@ class CheckUtils:
                         return self.fail_result
             return self.pass_result
         except Exception as e:
+            Logger.error('断言时报错{}'.format(str(e)))
             return self.fail_result

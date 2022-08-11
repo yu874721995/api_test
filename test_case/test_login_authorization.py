@@ -14,7 +14,7 @@ import os
 from common.yaml_utils import YamlUtils
 from common.requests_utils import RequesteUtils
 from config import RunConfig
-yaml_path = RunConfig.PRO_PATH + '/TestData/data_login_authorization.yaml'
+yaml_path = RunConfig.PRO_PATH + '/TestData/demo.yaml'
 # urllib3.disable_warnings()
 
 runs = RequesteUtils()
